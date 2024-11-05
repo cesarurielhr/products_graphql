@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     address: { type: String, require: true },
     registrationDate: { type: String, require: true },
     userTipe: { type: String, require: true },
-    preferredPaymentMethod: { type: String, require: true, enum: ['Tarjeta', 'Paypal','Efectivo'] }
+    PaymentMethod: { type: String, require: true, enum: ['Tarjeta', 'Paypal','Bitcoin', 'Tarjeta de Credito'] }
 });
 
 const User = mongoose.model('User', userSchema);

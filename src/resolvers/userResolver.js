@@ -11,11 +11,11 @@ const resolvers = {
         }
     },
     Mutation: {
-        createUser: (_, { Name, email, password, address, registrationDate, userTipe, preferredPaymentMethod }) => {
-            return userService.createUser(Name, email, password, address, registrationDate, userTipe, preferredPaymentMethod);
+        createUser: (_, { Name, email, password, address, registrationDate, userTipe, PaymentMethod }) => {
+            return userService.createUser(Name, email, password, address, registrationDate, userTipe, PaymentMethod);
         },
-        updateUser: (_, { _id, Name, email, password, address, registrationDate, userTipe, preferredPaymentMethod }) => {
-            return userService.updateUser(_id, Name, email, password, address, registrationDate, userTipe, preferredPaymentMethod);
+        updateUser: (_, { _id, Name, email, password, address, registrationDate, userTipe, PaymentMethod }) => {
+            return userService.updateUser(_id, Name, email, password, address, registrationDate, userTipe, PaymentMethod);
         },
         deleteUser: (_, { _id }) => {
             return userService.deleteUser(_id);

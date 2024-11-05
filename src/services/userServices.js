@@ -7,12 +7,12 @@ module.exports = {
     getUserById: async (_id) => {
         return await User.findById(_id);
     },
-    createUser: async (Name, email, password, address, registrationDate, userTipe, preferredPaymentMethod) => {
-        const user = new User({ Name, email, password, address, registrationDate, userTipe, preferredPaymentMethod });
+    createUser: async (Name, email, password, address, registrationDate, userTipe, PaymentMethod) => {
+        const user = new User({ Name, email, password, address, registrationDate, userTipe, PaymentMethod });
         return await user.save();
     },
-    updateUser: async (_id, Name, email, password, address, registrationDate, userTipe, preferredPaymentMethod) => {
-        return await User.findByIdAndUpdate(_id, { Name, email, password, address, registrationDate, userTipe, preferredPaymentMethod });
+    updateUser: async (_id, Name, email, password, address, registrationDate, userTipe, PaymentMethod) => {
+        return await User.findByIdAndUpdate(_id, { Name, email, password, address, registrationDate, userTipe, PaymentMethod });
     },
     deleteUser: async (_id) => {
         return await User.findByIdAndDelete(_id);

@@ -9,7 +9,7 @@ const typeDefs = gql`
         address: String!
         registrationDate: String!
         userTipe: String!
-        preferredPaymentMethod: String!
+        PaymentMethod: String!
     }
     
     type Query {
@@ -25,7 +25,7 @@ const typeDefs = gql`
             address: String!
             registrationDate: String!
             userTipe: String!
-            preferredPaymentMethod: String!
+            PaymentMethod: String!
         ): User!
 
         updateUser(
@@ -36,7 +36,7 @@ const typeDefs = gql`
             address: String
             registrationDate: String
             userTipe: String
-            preferredPaymentMethod: String!
+            PaymentMethod: String!
         ): User!
 
         deleteUser(_id: ID!): User!
