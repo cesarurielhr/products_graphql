@@ -1,20 +1,45 @@
 const User = require('../models/userModels');
+const facturapi = require('../api/facturapi');
 
 module.exports = {
-    getAllUsers: async () => {
-        return await User.find();
+
+    getAllUsers: async () => await User.find(),
+
+    createUser: async (user) => {
+        try {
+            // Validar si el usuario ya existe por correo
+            const existingUser = await User.findOne({
+                $or: [
+                    { email: user.email },
+                    { fullname: user.fullname }
+                  ]
+                });
+            if (existingUser) throw new Error("El usuario ya existe");
+
+            const facturapiUser = await facturapi.createCustomer(user);
+            console.log(facturapiUser);
+
+            const newUser = {
+                _id: facturapiUser.id,
+                ...user,
+                address: facturapiUser.address,
+                tax_id: facturapiUser.tax_id
+            }
+            return await User.create(newUser);
+        } catch (error) {
+            console.error(error);
+            throw new Error( error + "Error al crear el usuario");
+        }
     },
-    getUserById: async (_id) => {
-        return await User.findById(_id);
+
+    updateUser: async ({_id, ...args}) => {
+        await facturapi.updateCustomer(_id, args);
+        return await User.findByIdAndUpdate(_id, args);
     },
-    createUser: async (Name, email, password, address, registrationDate, userTipe, PaymentMethod) => {
-        const user = new User({ Name, email, password, address, registrationDate, userTipe, PaymentMethod });
-        return await user.save();
-    },
-    updateUser: async (_id, Name, email, password, address, registrationDate, userTipe, PaymentMethod) => {
-        return await User.findByIdAndUpdate(_id, { Name, email, password, address, registrationDate, userTipe, PaymentMethod });
-    },
-    deleteUser: async (_id) => {
+
+    deleteUser: async (_id) => { 
+        await facturapi.deleteCustomer(_id);
         return await User.findByIdAndDelete(_id);
-    }
+    },
+    
 }

@@ -1,17 +1,26 @@
-const {ApolloServer} = require('apollo-server');
+require('dotenv').config();
+
+const { ApolloServer } = require('apollo-server');
 const mongoose = require('mongoose');
-const typeDefs = require('./schemas/userSchema');
-const resolvers = require('./resolvers/userResolver');
 const { mergeTypeDefs, mergeResolvers } = require('@graphql-tools/merge'); 
 
-const startServer = async ()=>{
-   await  mongoose.connect('mongodb+srv://ceurhernandezro:admin@task.lxkxc.mongodb.net/?retryWrites=true&w=majority&appName=task');
-    
-   const server = new ApolloServer({typeDefs,resolvers});
-    server.listen().then(({url}) => {
-        console.log(`Server ready at ${url}`);
-    });
+const productTypeDefs = require('./schemas/productsSchema');
+const productResolvers = require('./resolvers/productResolver');
+const userTypeDefs = require('./schemas/userSchema');
+const userResolvers = require('./resolvers/userResolver');
 
+const startConnection = async () => {
+    await mongoose.connect(process.env.MONGO_URI);
+
+    const typeDefs = mergeTypeDefs([productTypeDefs, userTypeDefs]);
+    const resolvers = mergeResolvers([productResolvers, userResolvers]);
+
+    const server = new
+    ApolloServer({ typeDefs, resolvers });
+
+    server.listen().then(({url}) => {
+        console.log(`Servidor corriendo en ${url}`);
+    });
 };
 
-startServer();
+startConnection();

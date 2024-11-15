@@ -1,14 +1,15 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    id: { type: String, require: true },
-    Name: { type: String, require: true },
+    fullname: { type: String, require: true },
     email: { type: String, require: true },
     password: { type: String, require: true },
-    address: { type: String, require: true },
-    registrationDate: { type: String, require: true },
-    userTipe: { type: String, require: true },
-    PaymentMethod: { type: String, require: true, enum: ['Tarjeta', 'Paypal','Bitcoin', 'Tarjeta de Credito'] }
+    address: { type: Object, require: false },
+    tel: { type: String, require: false },
+    registerDate: { type: Date, default: new Date },
+    userType: { type: String, default: 'CLIENT' },
+    paymentMethod: { type: Array, require: true},
+    tax_id: { type: String, require: true }
 });
 
 const User = mongoose.model('User', userSchema);

@@ -1,35 +1,62 @@
-const {gql} = require('apollo-server');
+const { gql } = require('apollo-server');
 
+const categories = {
+    NO_CATEGORY: 'NO_CATEGORY',
+    ELECTRONICS: 'ELECTRONICS',
+    CLOTHING: 'CLOTHING',
+    FOOD: 'FOOD',
+    TOYS: 'TOYS'
+};
 
-const typeDefs = gql `
-scalar Date
-enum Category {
-    Abarrotes
-    Ropa
-    Libros
-    Juguetes
-}
+const typeDefs = gql`
+    
+    enum Category {
+        ${Object.values(categories).join('\n')}
+    }
 
-    type  Products {
+    type Product {
         _id: ID!
         name: String!
-        description: String!
+        description: String
         price: Float!
         category: Category!
-        brand: String!
+        brand: String
         stock: Int!
-        createdAt:Date!
-        image: [String!]!
+        createdAt: String!
+        imgs: [String!]
+        # facturapi_id: String!
+        product_key: String!
+    }
 
-    }
     type Query {
-        products: [Products]!
+        products: [Product]
     }
+
     type Mutation {
-        createProducts(name: String!, descripction: String!,prices: Float!, category:Category!, brand:String!): Products!
-        updateProducts(_id: ID!, completed: Boolean!): Products!
-        deleteProducts(_id: ID!): Products!
+        createProduct(
+            name: String!,
+            description: String,
+            price: Float!,
+            category: Category,
+            brand: String,
+            stock: Int,
+            imgs: [String],
+            product_key: String!
+        ): Product
+
+        updateProduct(
+            _id: ID!,
+            name: String,
+            description: String,
+            price: Float,
+            category: Category,
+            brand: String,
+            stock: Int,
+            imgs: [String]
+        ): Product
+
+        deleteProduct(_id: ID!): Product
     }
-`;
+`
 
 module.exports = typeDefs;

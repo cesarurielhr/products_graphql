@@ -1,19 +1,27 @@
-const Products = require('../models/productsModel');
+const Product = require('../models/productsModel');
+const facturapi = require('../api/facturapi');
 
 module.exports = {
-    getAllTask: async()=>{
-        return await Products.find()
 
+    getProducts: async () => await Product.find(),
+
+    createProduct: async (product) => {
+        const facturapiProduct = await facturapi.createProduct(product);
+        const newProduct = {
+            _id: facturapiProduct.id,
+            ...product  
+        };
+
+        return await Product.create(newProduct);
     },
-    createProducts: async(products) => {
-        const Products = new Products({products});
-        return await Products.save();
+
+    updateProduct: async ({_id, ...args}) => {
+        await facturapi.updateProduct(_id, args);
+        return await Product.findByIdAndUpdate(_id, args, { new: true });
     },
-    updateTask: async(_id) => {
-        return await Products.updateTask(_id);
-       
+
+    deleteProduct: async (_id) => {
+        await facturapi.deleteProduct(_id);
+        return await Product.findByIdAndDelete(_id);
     },
-    deleteTask: async(_id) => {
-        return await Products.findByIdAndDelete({_id});
-    }
 }
