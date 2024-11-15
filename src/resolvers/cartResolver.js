@@ -4,6 +4,7 @@ const resolvers = {
   // Query: {
   //   carts: async () => await cartService.getCarts(),
   // },
+  
   Mutation: {
     createCart: async (_, args) => await cartService.createCart(args),
     updateCart: async (_, args) => await cartService.updateCart(args),

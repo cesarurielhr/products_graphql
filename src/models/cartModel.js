@@ -18,6 +18,7 @@ const cartSchema = new mongoose.Schema({
             quantity: { type: Number, required: true, default: 1 },
         }
     ],
+    
     subtotal: { type: Number, required: true, default: 0 },
     IVA: { type: Number, required: true, default: .16 },
     total: { type: Number, required: true, default: 0 },

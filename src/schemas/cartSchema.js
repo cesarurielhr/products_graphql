@@ -15,7 +15,7 @@ const typeDefs = gql`
   # Required type definitions for cart [Product, User, Address, Category]
   type Product {
     _id: ID!
-    name: String!
+    name: String
     description: String
     price: Float!
     category: Category!
@@ -27,20 +27,20 @@ const typeDefs = gql`
   }
 
   type Address {
-    zip: String! # Código postal
-    street: String # Nombre de la calle
-    exterior: String # Número exterior
-    interior: String # Número interior
-    neighborhood: String # Colonia
-    city: String # Ciudad
-    municipality: String # Municipio o delegación
-    state: String # Nombre del estado o código ISO 3166-2
-    country: String # Código de país ISO 3166-1 alpha-3
+    zip: String! 
+    street: String 
+    exterior: String 
+    interior: String 
+    neighborhood: String 
+    city: String
+    municipality: String 
+    state: String 
+    country: String 
   }
 
   type User {
     _id: ID!
-    fullname: String!
+    fullname: String
     email: String!
     password: String!
     address: Address!
@@ -59,7 +59,7 @@ const typeDefs = gql`
     subtotal: Float
     tax: Float
     total: Float
-    status: Boolean
+    status: String
     createdAt: String
     closedAt: String
   }

@@ -13,11 +13,13 @@ const userResolvers = require('./resolvers/userResolver');
 const cartTypeDefs = require('./schemas/cartSchema');
 const cartResolvers = require('./resolvers/cartResolver');
 
+const emailTypeDefs = require('./schemas/emailSchema');
+const emailResolvers = require('./resolvers/mailjetResolver');
 const startConnection = async () => {
     await mongoose.connect(process.env.MONGO_URI);
 
-    const typeDefs = mergeTypeDefs([productTypeDefs, userTypeDefs, cartTypeDefs]);
-    const resolvers = mergeResolvers([productResolvers, userResolvers, cartResolvers]);
+    const typeDefs = mergeTypeDefs([productTypeDefs, userTypeDefs, cartTypeDefs, emailTypeDefs]);
+    const resolvers = mergeResolvers([productResolvers, userResolvers, cartResolvers, emailResolvers]);
 
     const server = new
     ApolloServer({ typeDefs, resolvers });
@@ -27,6 +29,6 @@ const startConnection = async () => {
     });
 };
 
-startConnection();
+
 
 startConnection();
