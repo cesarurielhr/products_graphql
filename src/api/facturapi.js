@@ -31,10 +31,12 @@ module.exports = {
         const facturapiCustomer = {
             legal_name: customer.fullname,
             tax_id: customer.tax_id || 'ABC101010111',
-            tax_system: '601',
+            tax_system: '616',
             address: customer.address || {
                 zip: '63900',
             },
+            email: customer.email || 'customer@example.com',
+            phone: customer.phone || '555-123-4567',
         };
         return await facturapi.customers.create(facturapiCustomer);
     },

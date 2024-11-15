@@ -1,5 +1,6 @@
 const { gql } = require('apollo-server');
 
+
 const typeDefs = gql`
 
     scalar Date
@@ -8,6 +9,7 @@ const typeDefs = gql`
         CLIENT
         ADMIN
     }
+    
 
     type Address {
         zip: String!        # Código postal
